@@ -1,0 +1,243 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Online Retail Sales Dashboard</title><style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
+            background: #f5f6fa;
+            color: #2d3436;
+            line-height: 1.5;
+        }
+
+        
+        .header {
+            background: #fff;
+            border-bottom: 2px solid #dfe6e9;
+            padding: 18px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .header h1 {
+            font-size: 20px;
+            font-weight: 700;
+            color: #2d3436;
+        }
+        .header h1 span { color: #0984e3; }
+        .header-right {
+            font-size: 13px;
+            color: #636e72;
+        }
+
+        
+        .tab-bar {
+            background: #fff;
+            border-bottom: 1px solid #dfe6e9;
+            padding: 0 40px;
+            display: flex;
+            gap: 0;
+        }
+        .tab-btn {
+            padding: 12px 24px;
+            font-size: 13px;
+            font-weight: 500;
+            color: #636e72;
+            border: none;
+            background: none;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.15s;
+            font-family: inherit;
+        }
+        .tab-btn:hover { color: #2d3436; }
+        .tab-btn.active {
+            color: #0984e3;
+            border-bottom-color: #0984e3;
+            font-weight: 600;
+        }
+
+        
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 24px 40px 60px;
+        }
+
+        
+        .section-heading {
+            font-size: 15px;
+            font-weight: 600;
+            color: #2d3436;
+            margin-bottom: 14px;
+            margin-top: 8px;
+            padding-bottom: 6px;
+            border-bottom: 1px solid #dfe6e9;
+        }
+
+        
+        .page { display: none; }
+        .page.active { display: block; }
+
+        
+        .kpi-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        .kpi-box {
+            background: #fff;
+            border: 1px solid #dfe6e9;
+            border-radius: 8px;
+            padding: 18px 20px;
+        }
+        .kpi-box .label {
+            font-size: 12px;
+            color: #636e72;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            margin-bottom: 6px;
+        }
+        .kpi-box .value {
+            font-size: 26px;
+            font-weight: 700;
+        }
+        .kpi-box .sub {
+            font-size: 11px;
+            color: #00b894;
+            margin-top: 2px;
+        }
+        .kpi-box:nth-child(1) .value { color: #0984e3; }
+        .kpi-box:nth-child(2) .value { color: #00b894; }
+        .kpi-box:nth-child(3) .value { color: #6c5ce7; }
+        .kpi-box:nth-child(4) .value { color: #e17055; }
+
+        
+        .row {
+            display: grid;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+        .row-2 { grid-template-columns: 1fr 1fr; }
+        .row-3 { grid-template-columns: 1fr 1fr 1fr; }
+        .row-wide-narrow { grid-template-columns: 2fr 1fr; }
+        .row-narrow-wide { grid-template-columns: 1fr 2fr; }
+        .row-1 { grid-template-columns: 1fr; }
+
+        .card {
+            background: #fff;
+            border: 1px solid #dfe6e9;
+            border-radius: 8px;
+            padding: 20px;
+        }
+        .card-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #2d3436;
+            margin-bottom: 4px;
+        }
+        .card-desc {
+            font-size: 11.5px;
+            color: #b2bec3;
+            margin-bottom: 16px;
+        }
+        .chart-wrap {
+            position: relative;
+            width: 100%;
+        }
+        .chart-wrap.h280 { height: 280px; }
+        .chart-wrap.h300 { height: 300px; }
+        .chart-wrap.h320 { height: 320px; }
+        .chart-wrap.h250 { height: 250px; }
+
+        
+        table.clean {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+        table.clean th {
+            text-align: left;
+            padding: 8px 12px;
+            font-weight: 600;
+            font-size: 11px;
+            color: #636e72;
+            text-transform: uppercase;
+            background: #f5f6fa;
+            border-bottom: 2px solid #dfe6e9;
+        }
+        table.clean td {
+            padding: 9px 12px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        table.clean tr:hover { background: #fafbfc; }
+        .tag {
+            display: inline-block;
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+        .tag-blue { background: #dfe6fd; color: #0984e3; }
+        .tag-green { background: #d4efdf; color: #00b894; }
+        .tag-orange { background: #fdebd0; color: #e17055; }
+        .tag-purple { background: #e8daef; color: #6c5ce7; }
+
+        
+        .insight-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+        .insight-item {
+            background: #fff;
+            border: 1px solid #dfe6e9;
+            border-radius: 8px;
+            padding: 16px 20px;
+            border-left: 4px solid #0984e3;
+        }
+        .insight-item:nth-child(2) { border-left-color: #00b894; }
+        .insight-item:nth-child(3) { border-left-color: #6c5ce7; }
+        .insight-item:nth-child(4) { border-left-color: #e17055; }
+        .insight-item:nth-child(5) { border-left-color: #fdcb6e; }
+        .insight-item:nth-child(6) { border-left-color: #00cec9; }
+        .insight-item h4 {
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: #2d3436;
+        }
+        .insight-item p {
+            font-size: 12.5px;
+            color: #636e72;
+            line-height: 1.6;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 20px;
+            font-size: 12px;
+            color: #b2bec3;
+            border-top: 1px solid #dfe6e9;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 900px) {
+            .kpi-row, .row-2, .row-3, .row-wide-narrow, .row-narrow-wide, .insight-list {
+                grid-template-columns: 1fr;
+            }
+            .container { padding: 16px; }
+            .header { padding: 14px 16px; }
+            .tab-bar { padding: 0 16px; overflow-x: auto; }
+        }
+    
+.filters{background:white;border:1px solid #dfe6e9;border-radius:8px;padding:20px;margin-bottom:20px}.filter-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:14px}.filters label{display:flex;flex-direction:column;gap:5px;font-size:12px;font-weight:600}.filters input,.filters select{font:inherit;font-size:14px;padding:10px;border:1px solid #bcc8d0;border-radius:5px;min-width:0;background:white;color:#25394a}.actions{display:flex;align-items:center;gap:12px;margin-top:16px;flex-wrap:wrap}.action{border:0;border-radius:5px;background:#0984e3;color:white;padding:11px 20px;font:600 13px inherit;cursor:pointer}.secondary{background:#e8edf2;color:#25394a}button:disabled{opacity:.45;cursor:default}input:focus,select:focus,button:focus-visible{outline:3px solid #85bded;outline-offset:2px}.status{font-size:13px;color:#475569;margin:12px 0}.error{color:#b42318}.scope{background:#eaf3fc;color:#294b68;padding:12px 16px;font-size:13px;border-radius:6px;margin:0 0 20px}.table-scroll{overflow:auto}.clean td{white-space:nowrap}.clean td.description{white-space:normal;min-width:250px}.pagination{display:flex;justify-content:space-between;align-items:center;margin-top:16px}.empty{padding:30px;text-align:center;color:#64748b}.header-right{max-width:420px;text-align:right}.tab-bar{overflow-x:auto}.kpi-row .sub{color:#636e72}.card-desc{color:#687986}.footer{color:#687986}.row .card{min-width:0}@media(max-width:700px){.filter-grid{grid-template-columns:1fr}.header{display:block}.header-right{text-align:left;margin-top:8px}.tab-btn{padding:12px}.container{padding:12px}.value{font-size:22px!important}}
+</style><script defer src="chart.umd.min.js"></script><script defer src="retail-data.js"></script><script defer src="dashboard.js"></script></head><body>
+<header class="header"><h1>Online Retail <span>Sales Dashboard</span></h1><div class="header-right" id="dataset-note">Loading transaction data…</div></header>
+<nav class="tab-bar" aria-label="Dashboard sections"><button type="button" class="tab-btn active" data-tab="overview" aria-pressed="true">Overview</button><button type="button" class="tab-btn " data-tab="transactions" aria-pressed="false">Transactions</button></nav><main class="container">
+<form class="filters" id="filters"><div class="filter-grid">
+<label>Search<input type="search" id="query" placeholder="Product name, code, customer ID or invoice" autocomplete="off"></label>
+<label>Search in<select id="field"><option value="all">All four fields</option><option value="product">Product name</option><option value="stock">Product code</option><option value="customer">Customer ID</option><option value="invoice">Invoice number</option></select></label>
+<label>Country<select id="country"><option value="">All countries</option></select></label>
+<label>From date<input type="date" id="from"></label><label>To date<input type="date" id="to"></label><label>Unit-price category<select id="category"><option value="">All prices</option></select></label>
+</div><div class="actions"><button class="action" type="submit" id="apply">Search &amp; Apply Filters</button><button class="action secondary" type="button" id="reset">Reset All</button><span>Combine filters to explore a specific set of sales.</span></div><div id="status" class="status" role="status" aria-live="polite">Loading…</div></form>
+<div class="scope" id="scope"></div><div class="kpi-row" id="kpis"></div><div id="content"></div>
+</main><footer class="footer">Foundations of Data Science · Online Retail Analysis · <a href="https://www.kaggle.com/datasets/vijayuv/onlineretail">Kaggle dataset</a><br>Positive sales with identified customers. Returns, cancellations and duplicate rows excluded. December 2011 is incomplete.</footer></body></html>

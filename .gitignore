@@ -1,0 +1,15 @@
+.DS_Store
+.env
+.env.*
+!.env.example
+__pycache__/
+.venv/
+.ipynb_checkpoints/
+.build-cache/
+*.app/
+OfflineModelCache/
+work/
+exports/
+data/
+final_dataset.csv
+retail-data.js
